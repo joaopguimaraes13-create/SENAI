@@ -28,3 +28,28 @@ st.write(f"A sua data de nascimento é: {dt_nasc}")
 
 #um MÉTODO é aquilo que abre e fecha os parêntes, o que ele vai executar,
 #rodar, fazer e processar na tela.
+
+import streamlit as st
+import database as db
+
+db.criar_tabela()
+
+st.title("Almoço")
+st.header("Estrogonofe")
+st.subheader("de carne é melhor que frango")
+
+with st.form("form_cadastro_aluno"):
+
+    nome = st.text_input("Nome")
+    idade = st.number_input("Idade:", value=50)
+    nota = st.number_input("Nota:", value= 0.0, step= 0.5, min_value= 0.0, max_value= 10.0)
+
+    btn_form = st.form_submit_button("Enviar")
+
+if btn_form:
+    msg = db.cadastro_aluno(nome, idade, nota)
+    st.warning(msg)
+
+with st.form("form_delete_aluno"):
+    id_aluno = st.number_input("ID DO ALUNO", value=0, step=1, min_value=0)
+    
